@@ -2,7 +2,10 @@
 
 public static class OpenApi
 {
-	public static void ConfigureOpenApi (this IServiceCollection services, string httpsUrl, string httpUrl)
+	public static void ConfigureOpenApi (
+		this IServiceCollection services,
+		string httpsUrl,
+		string httpUrl)
 	{
 		services.AddOpenApi (options =>
 		{

@@ -7,7 +7,9 @@ public class DatabaseHealthCheck : IHealthCheck
 	public DatabaseHealthCheck (Database database) =>
 		_database = database;
 
-	public async Task<HealthCheckResult> CheckHealthAsync (HealthCheckContext context, CancellationToken cancellationToken = default)
+	public async Task<HealthCheckResult> CheckHealthAsync (
+		HealthCheckContext context,
+		CancellationToken cancellationToken = default)
 	{
 		await Task.Delay (0);
 

@@ -29,7 +29,8 @@ public class HealthEndpoint
 	{
 		try
 		{
-			var httpClient = context.RequestServices.GetService<IHttpClientFactory> ()?.CreateClient ("HealthClient");
+			var httpClient = context.RequestServices.GetService<IHttpClientFactory> ()?
+				.CreateClient ("HealthClient");
 
 			if (httpClient is null)
 				return TypedResults.NoContent ();

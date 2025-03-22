@@ -7,7 +7,10 @@ public class AntiforgeryMiddleware
 	private readonly string _headerName;
 	private string _methodName;
 
-	public AntiforgeryMiddleware (RequestDelegate next, IAntiforgery antiforgery, IConfiguration configuration)
+	public AntiforgeryMiddleware (
+		RequestDelegate next,
+		IAntiforgery antiforgery,
+		IConfiguration configuration)
 	{
 		_next = next;
 		_antiforgery = antiforgery;

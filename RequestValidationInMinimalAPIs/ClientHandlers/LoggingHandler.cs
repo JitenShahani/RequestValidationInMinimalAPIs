@@ -7,7 +7,9 @@ public class LoggingHandler : DelegatingHandler
 	public LoggingHandler (ILogger<LoggingHandler> logger) =>
 		_logger = logger;
 
-	protected override async Task<HttpResponseMessage> SendAsync (HttpRequestMessage request, CancellationToken cancellationToken)
+	protected override async Task<HttpResponseMessage> SendAsync (
+		HttpRequestMessage request,
+		CancellationToken cancellationToken)
 	{
 		_logger.LogInformation ("Sending request to {requestUrl}", request.RequestUri);
 		var stopwatch = Stopwatch.StartNew ();
