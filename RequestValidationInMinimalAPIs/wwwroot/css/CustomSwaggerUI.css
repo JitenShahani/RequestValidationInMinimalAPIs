@@ -1,0 +1,8 @@
+﻿.swagger-ui .scheme-container {
+	margin: 0px;
+	padding-top: 0px;
+}
+
+.swagger-ui .opblock .opblock-summary-operation-id {
+	word-break: keep-all;
+}

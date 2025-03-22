@@ -1,0 +1,50 @@
+@HostAddress = https://localhost:7036
+
+GET {{HostAddress}}/AFT HTTP/1.1
+Content-Type: none
+
+###
+
+GET {{HostAddress}}/health HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET {{HostAddress}}/posts HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET {{HostAddress}}/posts/{id:Guid} HTTP/1.1
+Content-Type: application/json
+
+###
+
+POST {{HostAddress}}/posts HTTP/1.1
+Accept: application/json
+Accept-Language: en-US
+Content-Type: application/json
+
+{
+  "title": "string",
+  "content": "string"
+}
+
+###
+
+PUT {{HostAddress}}/posts HTTP/1.1
+Accept: application/json
+Accept-Language: en-US
+Content-Type: application/json
+
+{
+  "id": "",
+  "title": "string",
+  "content": "string"
+}
+
+###
+
+DELETE {{HostAddress}}/posts/{id:Guid} HTTP/1.1
+
+###
