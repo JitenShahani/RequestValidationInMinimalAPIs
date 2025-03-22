@@ -11,16 +11,14 @@ public class DatabaseHealthCheck : IHealthCheck
 		HealthCheckContext context,
 		CancellationToken cancellationToken = default)
 	{
-		await Task.Delay (0);
+		await Task.Delay (0, cancellationToken);
 
 		try
 		{
 			bool databaseIsHealthy = _database.Posts is not null && _database.Posts.Count > 0;
 
 			if (databaseIsHealthy)
-			{
 				return HealthCheckResult.Healthy ($"{_database.Posts!.Count.ToString ()} Record found!");
-			}
 
 			return HealthCheckResult.Unhealthy ("The database is unhealthy.");
 		}
