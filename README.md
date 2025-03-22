@@ -35,7 +35,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 1. Clone the repository:
 ```
-      git clone https://github.com/your-username/RequestValidationInMinimalAPIs.git
+      git clone https://github.com/JitenShahani/RequestValidationInMinimalAPIs.git
       cd RequestValidationInMinimalAPIs
 ```
 
@@ -50,7 +50,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
     dotnet run --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
 ```
 
-4. Open your browser and navigate to `https://localhost:5001/swagger/index.html` to view the Swagger UI.
+4. Open your browser and navigate to `https://localhost:7036/swagger/index.html` to view the Swagger UI.
 
 
 ## Contributing
