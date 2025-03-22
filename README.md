@@ -31,32 +31,6 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - .NET 9 SDK
 - Visual Studio 2022 or any other compatible IDE
 
-## Examples
-
-### Global Exception Handling
-To see global exception handling in action, you can trigger an unhandled exception by accessing an endpoint that throws an exception. The middleware will catch the exception and return a standardized error response.
-
-### CORS
-To test CORS, try making a request to the API from a different origin. The CORS policy will allow or deny the request based on the configured origins.
-
-### HTTPS Redirection
-To test HTTPS redirection, try accessing the application using HTTP. The application will automatically redirect the request to HTTPS.
-
-### Health Checks
-To check the health status of the application, navigate to the `/health` endpoint. The application will return the health status of various components.
-
-### OpenAPI Documentation
-To view the OpenAPI documentation, navigate to the `/swagger` endpoint. The Swagger UI will display the API documentation with custom styles and dark mode support.
-
-### Rate Limiting
-To test rate limiting, make multiple requests to the API within a short period. The rate limiter will enforce the configured limits and return a `429 Too Many Requests` response if the limit is exceeded.
-
-### Anti-Forgery Tokens
-To test anti-forgery tokens, try making a POST request without including the anti-forgery token in the headers. The request will be rejected to protect against CSRF attacks.
-
-### Minimal APIs
-To see minimal APIs in action, navigate to the various endpoints defined in the application. The minimal APIs provide a simple and efficient way to create HTTP endpoints.
-
 ### Installation
 
 1. Clone the repository:
@@ -82,6 +56,31 @@ Or , use the `watch` command to automatically restart the application when chang
 
 4. Open your browser and navigate to `https://localhost:7036/swagger/index.html` to view the Swagger UI.
 
+## Examples
+
+### Global Exception Handling
+To see global exception handling in action, you can trigger an unhandled exception by accessing an endpoint that throws an exception. The middleware will catch the exception and return a standardized error response.
+
+### CORS
+To test CORS, try making a request to the API from a different origin. The CORS policy will allow or deny the request based on the configured origins.
+
+### HTTPS Redirection
+To test HTTPS redirection, try accessing the application using HTTP. The application will automatically redirect the request to HTTPS.
+
+### Health Checks
+To check the health status of the application, navigate to the `/health` endpoint. The application will return the health status of various components.
+
+### OpenAPI Documentation
+To view the OpenAPI documentation, navigate to the `/swagger` endpoint. The Swagger UI will display the API documentation with custom styles and dark mode support.
+
+### Rate Limiting
+To test rate limiting, make multiple requests to the API within a short period. The rate limiter will enforce the configured limits and return a `429 Too Many Requests` response if the limit is exceeded.
+
+### Anti-Forgery Tokens
+To test anti-forgery tokens, try making a POST request without including the anti-forgery token in the headers. The request will be rejected to protect against CSRF attacks.
+
+### Minimal APIs
+To see minimal APIs in action, navigate to the various endpoints defined in the application. The minimal APIs provide a simple and efficient way to create HTTP endpoints.
 
 ## Contributing
 
