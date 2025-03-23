@@ -59,7 +59,7 @@ Or , use the `watch` command to automatically restart the application when chang
 ## Examples
 
 ### Global Exception Handling
-To see global exception handling in action, you can trigger an unhandled exception by accessing an endpoint that throws an exception. The middleware will catch the exception and return a standardized error response.
+To see global exception handling in action, you can trigger an unhandled exception by accessing `/exception` endpoint that throws an exception. The middleware will catch the exception and return a standardized error response.
 
 ### CORS
 To test CORS, try making a request to the API from a different origin. The CORS policy will allow or deny the request based on the configured origins.
