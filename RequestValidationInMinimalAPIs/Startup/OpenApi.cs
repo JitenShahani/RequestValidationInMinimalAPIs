@@ -40,16 +40,6 @@ public static class OpenApi
 					},
 					new OpenApiTag
 					{
-						Name = "Exception",
-						Description = "Minimal endpoints that throws an exception if the argument value is empty",
-						ExternalDocs = new OpenApiExternalDocs
-						{
-							Description = "Documentation",
-							Url = new Uri("https://github.com/JitenShahani/MinimalAPIDemo")
-						}
-					},
-					new OpenApiTag
-					{
 						Name = "Health",
 						Description = "Minimal endpoint to check health of this application and its database"
 					}
