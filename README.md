@@ -72,7 +72,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `404 Not Found`: Blog post not found.
   - `400 Bad Request`: Missing anti-forgery token.
 
-## Health Check - Documentation
+## Health Endpoint - Documentation
 
 ### Get the health status of the application and the database
 - **Endpoint**: `GET /health`
