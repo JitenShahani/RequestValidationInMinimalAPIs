@@ -72,6 +72,25 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `404 Not Found`: Blog post not found.
   - `400 Bad Request`: Missing anti-forgery token.
 
+## Health Check - Documentation
+
+### Get the health status of the application and the database
+- **Endpoint**: `GET /health`
+- **Description**: This endpoint returns the health status of the application along with it's database.
+- **Responses**:
+  - `200 OK`: Returns the health status of the application.
+  - `204 No Content`: The named HttpClient service is missing, the endpoint response is not 200 OK, or the health report is null.
+  `500 Internal Server Error`: If an exception occurs.
+
+## Exception Endpoint - Documentation
+
+### Trigger an unhandled exception
+- **Endpoint**: `GET /exception`
+- **Description**: This endpoint triggers an unhandled exception to demonstrate global exception handling.
+- **Responses**:
+  - `200 OK`: Returns the argument value if the Name parameter is not null.
+  - `500 Internal Server Error`: Returns a standardized error response with details of the exception.
+
 ## Getting Started
 
 ### Installation
