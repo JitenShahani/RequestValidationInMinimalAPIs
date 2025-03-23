@@ -24,12 +24,55 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **ASP.NET Core**
 - **Swagger UI**
 
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 
 - .NET 9 SDK
 - Visual Studio 2022 or any other compatible IDE
+
+## Posts Endpoint - Documentation
+
+### Get all blog posts
+- **Endpoint**: `GET /posts`
+- **Description**: This endpoint returns all the blog posts from the database.
+- **Responses**:
+  - `200 OK`: Returns a list of blog posts.
+  - `204 No Content`: No blog posts found.
+
+### Get a blog post by Id
+- **Endpoint**: `GET /posts/{id:Guid}`
+- **Description**: This endpoint returns a single blog post based on the blog post Id you provide.
+- **Responses**:
+  - `200 OK`: Returns the blog post.
+  - `404 Not Found`: Blog post not found.
+
+### Create a new blog post
+- **Endpoint**: `POST /posts`
+- **Description**: This endpoint creates a new blog post based on the values you provide.
+- **Request Body**:
+  - `application/json`: A JSON object containing the title and content of the blog post.
+- **Responses**:
+  - `201 Created`: Returns the Id of the created blog post.
+  - `400 Bad Request`: Invalid request data or missing anti-forgery token.
+
+### Update an existing blog post
+- **Endpoint**: `PUT /posts`
+- **Description**: This endpoint updates an existing blog post based on the values you provide.
+- **Request Body**:
+  - `application/json`: A JSON object containing the Id, title, and content of the blog post.
+- **Responses**:
+  - `200 OK`: Blog post updated successfully.
+  - `404 Not Found`: Blog post not found.
+  - `400 Bad Request`: Invalid request data or missing anti-forgery token.
+
+### Delete an existing blog post
+- **Endpoint**: `DELETE /posts/{id:Guid}`
+- **Description**: This endpoint deletes an existing blog post based on the blog post Id you provide.
+- **Responses**:
+  - `200 OK`: Blog post deleted successfully.
+  - `404 Not Found`: Blog post not found.
+  - `400 Bad Request`: Missing anti-forgery token.
+
+## Getting Started
 
 ### Installation
 
@@ -38,7 +81,6 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
       git clone https://github.com/JitenShahani/RequestValidationInMinimalAPIs.git
       cd RequestValidationInMinimalAPIs
 ```
-
 
 2. Build the project:
 ```
@@ -49,7 +91,9 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 ```
     dotnet run --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
 ```
+
 Or , use the `watch` command to automatically restart the application when changes are detected:
+
 ```
     dotnet watch --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
 ```
@@ -59,13 +103,13 @@ Or , use the `watch` command to automatically restart the application when chang
 ## Examples
 
 ### Global Exception Handling
-To see global exception handling in action, you can trigger an unhandled exception by accessing an endpoint that throws an exception. The middleware will catch the exception and return a standardized error response.
+To see global exception handling in action, you can trigger an unhandled exception by accessing `/exception` endpoint that throws an ArgumentNull exception. The middleware will catch the exception and return a standardized error response.
 
 ### CORS
 To test CORS, try making a request to the API from a different origin. The CORS policy will allow or deny the request based on the configured origins.
 
 ### HTTPS Redirection
-To test HTTPS redirection, try accessing the application using HTTP. The application will automatically redirect the request to HTTPS.
+To test HTTPS redirection, try accessing the application using HTTP. The application will automatically redirect the request to HTTPS provided the environment is not development.
 
 ### Health Checks
 To check the health status of the application, navigate to the `/health` endpoint. The application will return the health status of various components.
@@ -77,7 +121,7 @@ To view the OpenAPI documentation, navigate to the `/swagger` endpoint. The Swag
 To test rate limiting, make multiple requests to the API within a short period. The rate limiter will enforce the configured limits and return a `429 Too Many Requests` response if the limit is exceeded.
 
 ### Anti-Forgery Tokens
-To test anti-forgery tokens, try making a POST request without including the anti-forgery token in the headers. The request will be rejected to protect against CSRF attacks.
+To test anti-forgery tokens, try making a POST, PUT, or DELETE request without including the anti-forgery token in the header. The request will be rejected to protect against Cross-Site Request Forgery (CSRF) attacks.
 
 ### Minimal APIs
 To see minimal APIs in action, navigate to the various endpoints defined in the application. The minimal APIs provide a simple and efficient way to create HTTP endpoints.

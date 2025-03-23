@@ -35,8 +35,13 @@ public static class OpenApi
 						ExternalDocs = new OpenApiExternalDocs
 						{
 							Description = "Documentation",
-							Url = new Uri("https://github.com/JitenShahani/MinimalAPIDemo")
+							Url = new Uri("https://github.com/JitenShahani/RequestValidationInMinimalAPIs")
 						}
+					},
+					new OpenApiTag
+					{
+						Name = "Exception",
+						Description = "Minimal endpoints that throws an exception if the argument value is empty"
 					},
 					new OpenApiTag
 					{

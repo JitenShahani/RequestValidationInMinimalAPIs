@@ -128,5 +128,20 @@ public static class Middleware
 			.WithDescription ("This endpoint returns the Anti Forgery Token.")
 			.ExcludeFromDescription ()
 			.WithTags ("AFT");
+
+		// Map the Exception endpoint
+		app.MapGet ("/exception", ([FromQuery] string? Name) =>
+		{
+			if (string.IsNullOrEmpty (Name))
+				throw new ArgumentNullException (nameof (Name));
+
+			return TypedResults.Ok (new { Name });
+		})
+			.WithOpenApi ()
+			.RequireCors ()
+			.DisableRateLimiting ()
+			.WithSummary ("Throws an exception if the name argument is empty")
+			.WithDescription ("This endpoint throws an exception if the name argument is empty.")
+			.WithTags ("Exception");
 	}
 }
