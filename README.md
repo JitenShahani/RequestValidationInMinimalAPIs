@@ -91,14 +91,6 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `200 OK`: Returns the argument value if the Name parameter is not null.
   - `500 Internal Server Error`: Returns a standardized error response with details of the exception.
 
-## Anti-Forgery Token Endpoint - Documentation
-
-### Get Anti-Forgery Token
-- **Endpoint**: `GET /AFT`
-- **Description**: This endpoint returns the Anti-Forgery Token.
-- **Responses**:
-  - `200 OK`: Returns the Anti-Forgery Token.
-
 ## Getting Started
 
 ### Installation
