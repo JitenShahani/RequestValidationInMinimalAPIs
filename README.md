@@ -80,7 +80,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Responses**:
   - `200 OK`: Returns the health status of the application.
   - `204 No Content`: The named HttpClient service is missing, the endpoint response is not 200 OK, or the health report is null.
-  `500 Internal Server Error`: If an exception occurs.
+  - `500 Internal Server Error`: If an exception occurs.
 
 ## Exception Endpoint - Documentation
 
