@@ -119,13 +119,14 @@ public static class Middleware
 			string headerName = configuration["AntiForgeryToken:HeaderName"]!;
 			httpContext.Response.Headers.Append (headerName, token);
 
-			return TypedResults.Ok (new { Token = token });
+			return TypedResults.Ok (new AFToken() { Token = token });
 		})
 			.WithOpenApi ()
 			.RequireCors ()
 			.DisableRateLimiting ()
 			.WithSummary ("Get Anti Forgery Token")
 			.WithDescription ("This endpoint returns the Anti Forgery Token.")
+			.Produces<AFToken>(StatusCodes.Status200OK)
 			.ExcludeFromDescription ()
 			.WithTags ("AFT");
 
@@ -135,13 +136,15 @@ public static class Middleware
 			if (string.IsNullOrEmpty (Name))
 				throw new ArgumentNullException (nameof (Name));
 
-			return TypedResults.Ok (new { Name });
+			return TypedResults.Ok (Name);
 		})
 			.WithOpenApi ()
 			.RequireCors ()
 			.DisableRateLimiting ()
 			.WithSummary ("Throws an exception if the name argument is empty")
 			.WithDescription ("This endpoint throws an exception if the name argument is empty.")
+			.Produces<string> (StatusCodes.Status200OK)
+			.ProducesProblem (StatusCodes.Status500InternalServerError)
 			.WithTags ("Exception");
 	}
 }
