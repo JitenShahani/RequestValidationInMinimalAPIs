@@ -41,7 +41,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 ### Get a blog post by Id
 - **Endpoint**: `GET /posts/{id:Guid}`
-- **Description**: This endpoint returns a single blog post based on the blog post Id you provide.
+- **Description**: This endpoint returns a single blog post based on the blog post Id you provide. The data will be cached using Hybrid Cache, and the response header `X-Data-Source` will indicate whether the data is coming from the Database or Cache.
 - **Responses**:
   - `200 OK`: Returns the blog post.
   - `404 Not Found`: Blog post not found.
