@@ -16,12 +16,13 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Swagger UI**: Integrate Swagger UI with custom styles and dark mode support.
 - **Rate Limiting**: Enable rate limiting to control the number of requests.
 - **Anti-Forgery Tokens**: Use anti-forgery tokens to protect against CSRF attacks.
+- **Hybrid Cache**: Use Hybrid Cache to cache data and improve performance.
 - **Minimal APIs**: Demonstrate the use of minimal APIs for creating HTTP endpoints.
 
 ## Technologies Used
 
 - **.NET 9**
-- **ASP.NET Core**
+- **ASP .NET Core**
 - **Swagger UI**
 
 ## Prerequisites
@@ -149,6 +150,9 @@ To test rate limiting, make multiple requests to the API within a short period. 
 
 ### Anti-Forgery Tokens
 To test anti-forgery tokens, try making a POST, PUT, or DELETE request without including the anti-forgery token in the header. The request will be rejected to protect against Cross-Site Request Forgery (CSRF) attacks.
+
+### Hybrid Cache
+To see Hybrid Cache in action, navigate to the `/posts` or `/posts/{id:Guid}` endpoints. The data will be cached for 5 minutes, and the response header `X-Data-Source` will indicate whether the data is coming from the Database or Cache.
 
 ### Minimal APIs
 To see minimal APIs in action, navigate to the various endpoints defined in the application. The minimal APIs provide a simple and efficient way to create HTTP endpoints.

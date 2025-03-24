@@ -87,9 +87,28 @@ public class PostEndpoints
 			: TypedResults.NoContent ();
 	}
 
-	internal Results<Ok<Post>, NotFound> GetPostById ([FromRoute] Guid id, [FromServices] Database database)
+	internal async Task<Results<Ok<Post>, NotFound>> GetPostById (
+		[FromServices] HybridCache hybridCache,
+		[FromRoute] Guid id,
+		[FromServices] Database database,
+		HttpContext httpContext,
+		CancellationToken cancellationToken)
 	{
-		var post = database.Posts.FirstOrDefault (p => p.Id == id);
+		bool isFromCache = true;
+
+		Post post = await hybridCache
+			.GetOrCreateAsync (
+				$"PostCache_{id}",
+				async token =>
+				{
+					isFromCache = false;
+					return await Task.FromResult (
+						database.Posts.FirstOrDefault (p => p.Id == id)!);
+				},
+				cancellationToken: cancellationToken);
+
+		// Set response header based on data source
+		httpContext.Response.Headers.Append ("X-Data-Source", isFromCache ? "Cache" : "Database");
 
 		return post is not null
 			? TypedResults.Ok (post)
