@@ -119,14 +119,14 @@ public static class Middleware
 			string headerName = configuration["AntiForgeryToken:HeaderName"]!;
 			httpContext.Response.Headers.Append (headerName, token);
 
-			return TypedResults.Ok (new AFToken() { Token = token });
+			return TypedResults.Ok (new AFToken () { Token = token });
 		})
 			.WithOpenApi ()
 			.RequireCors ()
 			.DisableRateLimiting ()
 			.WithSummary ("Get Anti Forgery Token")
 			.WithDescription ("This endpoint returns the Anti Forgery Token.")
-			.Produces<AFToken>(StatusCodes.Status200OK)
+			.Produces<AFToken> (StatusCodes.Status200OK)
 			.ExcludeFromDescription ()
 			.WithTags ("AFT");
 

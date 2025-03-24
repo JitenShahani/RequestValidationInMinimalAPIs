@@ -7,6 +7,7 @@ global using System.Threading.RateLimiting;
 global using Swashbuckle.AspNetCore.SwaggerUI;
 global using Microsoft.AspNetCore.Antiforgery;
 global using Microsoft.AspNetCore.RateLimiting;
+global using Microsoft.Extensions.Caching.Hybrid;
 global using Microsoft.AspNetCore.Http.HttpResults;
 global using RequestValidationInMinimalAPIs.Filters;
 global using Microsoft.AspNetCore.Mvc.Infrastructure;

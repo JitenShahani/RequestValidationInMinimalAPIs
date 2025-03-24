@@ -117,6 +117,18 @@ public static class IoC
 			});
 		});
 
+		// Register Hybrid Cache
+		builder.Services.AddHybridCache (options =>
+		{
+			options.MaximumPayloadBytes = 1024 * 1024;
+			options.MaximumKeyLength = 1024;
+			options.DefaultEntryOptions = new HybridCacheEntryOptions
+			{
+				Expiration = TimeSpan.FromMinutes (5),
+				LocalCacheExpiration = TimeSpan.FromMinutes (5)
+			};
+		});
+
 		// Register ServiceValidator service.
 		// This service injects all the required services to make sure that exception(s) are reaised in case they are unregistered.
 		builder.Services.AddSingleton<ServiceValidator> ();

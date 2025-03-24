@@ -15,7 +15,7 @@ public class PostEndpoints
 			.RequireRateLimiting ("Concurrency")
 			.RequireRateLimiting ("FixedWindow")
 			.WithTags ("Posts")
-			.ProducesProblem(StatusCodes.Status500InternalServerError);
+			.ProducesProblem (StatusCodes.Status500InternalServerError);
 
 		postEndpoints.MapGet ("/", GetPosts)
 			.WithSummary ("Get all blog posts")
@@ -54,21 +54,37 @@ public class PostEndpoints
 			.Produces (StatusCodes.Status400BadRequest); // Endpoint doesn't return 400. Anti Forgery middleware does, on invalid token.
 	}
 
-	internal Results<Ok<List<Post>>, NoContent> GetPosts (
+	internal async Task<Results<Ok<List<Post>>, NoContent>> GetPosts (
+		[FromServices] HybridCache hybridCache,
 		[FromServices] Database database,
 		[FromServices] IAntiforgery antiforgery,
-		HttpContext httpContext)
+		HttpContext httpContext,
+		CancellationToken cancellationToken)
 	{
-		var posts = database.Posts.ToList ();
+		string cacheKey = "PostCache";
+		bool isFromCache = true;
+
+		// Fetch posts from cache or database
+		List<Post> posts = await hybridCache
+			.GetOrCreateAsync (
+				cacheKey,
+				async token =>
+				{
+					isFromCache = false;
+					return await Task.FromResult (database.Posts.ToList ());
+				},
+				cancellationToken: cancellationToken);
+
+		// Set response header based on data source
+		httpContext.Response.Headers.Append ("X-Data-Source", isFromCache ? "Cache" : "Database");
 
 		// Generate the anti-forgery token
-		var token = antiforgery.GetAndStoreTokens (httpContext).RequestToken;
-		httpContext.Response.Headers.Append (_headerName, token);
+		httpContext.Response.Headers.Append (_headerName, antiforgery.GetAndStoreTokens (httpContext).RequestToken);
 
-		return
-		posts.Count > 0
-		? TypedResults.Ok (posts)
-		: TypedResults.NoContent ();
+		// Return the appropriate result based on the posts count
+		return posts.Count > 0
+			? TypedResults.Ok (posts)
+			: TypedResults.NoContent ();
 	}
 
 	internal Results<Ok<Post>, NotFound> GetPostById ([FromRoute] Guid id, [FromServices] Database database)
