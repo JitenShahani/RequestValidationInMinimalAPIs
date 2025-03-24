@@ -33,7 +33,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 ### Get all blog posts
 - **Endpoint**: `GET /posts`
-- **Description**: This endpoint returns all the blog posts from the database.
+- **Description**: This endpoint returns all the blog posts from the database. The data will be cached using Hybrid Cache, and the response header `X-Data-Source` will indicate whether the data is coming from the Database or Cache.
 - **Responses**:
   - `200 OK`: Returns a list of blog posts.
   - `204 No Content`: No blog posts found.
