@@ -9,7 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-wwwroot/css/SwaggerDark.css
+/RequestValidationInMinimalAPIs/wwwroot/css/SwaggerDark.css
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
