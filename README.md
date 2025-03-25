@@ -1,8 +1,13 @@
-# Request Validation in Minimal APIs
-
-## Overview
+# Request Validation in Minimal APIs [![Target](https://img.shields.io/static/v1?label=Target&message=net9.0&color=512bd4&logo=.net&style=flat-square)](https://dotnet.microsoft.com/en-us/) [![Language](https://img.shields.io/badge/C%23-239120?label=&logo=c-sharp&style=flat-square)](https://dotnet.microsoft.com/en-us/languages/csharp/) [![Language](https://img.shields.io/badge/CSS-239120?label=&logo=css3&style=flat-square)]()
 
 Request Validation in Minimal APIs is a .NET 9 application that demonstrates the use of minimal APIs in ASP.NET Core. This project includes various features such as global exception handling, CORS, HTTPS redirection, health checks, OpenAPI documentation, and more. It also showcases the use of middleware for handling exceptions and anti-forgery tokens, as well as the integration of Swagger UI with custom styles and dark mode support.
+
+[![FluentValidation](https://img.shields.io/nuget/dt/FluentValidation.svg?label=FluentValidation&style=flat-square&logo=Fluent__Validation)](https://www.nuget.org/packages/FluentValidation/)
+[![FluentValidation.DependencyInjection](https://img.shields.io/nuget/dt/FluentValidation.DependencyInjectionExtensions.svg?label=FluentValidation.DependencyInjectionExtensions&style=flat-square&logo=Fluent__Validation)](https://www.nuget.org/packages/FluentValidation.DependencyInjectionExtensions/)
+[![OpenApi](https://img.shields.io/nuget/dt/Microsoft.AspNetCore.OpenApi.svg?label=Microsoft.AspNetCore.OpenApi&style=flat-square&logo=Microsoft)](https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/)
+[![HybridCaching](https://img.shields.io/nuget/dt/Microsoft.Extensions.Caching.Hybrid.svg?label=Microsoft.Extensions.Caching.Hybrid&style=flat-square&logo=Microsoft)](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Hybrid/)
+[![HealthChecks](https://img.shields.io/nuget/dt/Microsoft.Extensions.Diagnostics.HealthChecks.svg?label=Microsoft.Extensions.Diagnostics.HealthChecks&style=flat-square&logo=Microsoft)](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks/)
+[![SwaggerUI](https://img.shields.io/nuget/dt/Swashbuckle.AspNetCore.SwaggerUI.svg?label=Swashbuckle.AspNetCore.SwaggerUI&style=flat-square&logo=Swagger)](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/)
 
 ## Features
 
@@ -19,18 +24,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Hybrid Cache**: Use Hybrid Cache to cache data and improve performance.
 - **Minimal APIs**: Demonstrate the use of minimal APIs for creating HTTP endpoints.
 
-## Technologies Used
-
-- **.NET 9**
-- **ASP .NET Core**
-- **Swagger UI**
-
-## Prerequisites
-
-- .NET 9 SDK
-- Visual Studio 2022 or any other compatible IDE
-
-## Posts Endpoint - Documentation
+## Blog Post Endpoints
 
 ### Get all blog posts
 - **Endpoint**: `GET /posts`
@@ -73,7 +67,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `404 Not Found`: Blog post not found.
   - `400 Bad Request`: Missing anti-forgery token.
 
-## Health Endpoint - Documentation
+## Health Check Endpoint
 
 ### Get the health status of the application and the database
 - **Endpoint**: `GET /health`
@@ -83,7 +77,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `204 No Content`: The named HttpClient service is missing, the endpoint response is not 200 OK, or the health report is null.
   - `500 Internal Server Error`: If an exception occurs.
 
-## Exception Endpoint - Documentation
+## Exception Endpoint
 
 ### Trigger an unhandled exception
 - **Endpoint**: `GET /exception`
@@ -92,7 +86,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `200 OK`: Returns the argument value if the Name parameter is not null.
   - `500 Internal Server Error`: Returns a standardized error response with details of the exception.
 
-## Anti-Forgery Token Endpoint - Documentation
+## Anti-Forgery Token Endpoint
 
 ### Get Anti-Forgery Token
 - **Endpoint**: `GET /AFT`
@@ -101,6 +95,14 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `200 OK`: Returns the Anti-Forgery Token.
 
 ## Getting Started
+
+### Prerequisites
+
+- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
+- Compatible IDE
+  - [![IDE](https://img.shields.io/badge/Visual_Studio-5C2D91?label=IDE&logo=visual%20studio&style=flat-square)](https://visualstudio.microsoft.com/)
+  - [![IDE](https://img.shields.io/badge/Visual_Studio_Code-0078D4?label=Editor&logo=visual%20studio%20code&style=flat-square)](https://www.jetbrains.com/rider/)
+  - [![IDE](https://img.shields.io/badge/Rider-000000?label=IDE&logo=Rider&style=flat-square)](https://www.jetbrains.com/rider/)
 
 ### Installation
 
