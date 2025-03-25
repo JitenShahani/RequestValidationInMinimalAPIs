@@ -101,7 +101,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 - Compatible IDE
   - [![IDE](https://img.shields.io/badge/Visual_Studio-5C2D91?label=IDE&logo=visual%20studio&style=flat-square)](https://visualstudio.microsoft.com/)
-  - [![IDE](https://img.shields.io/badge/Visual_Studio_Code-0078D4?label=Editor&logo=visual%20studio%20code&style=flat-square)](https://www.jetbrains.com/rider/)
+  - [![IDE](https://img.shields.io/badge/Visual_Studio_Code-0078D4?label=Editor&logo=visual%20studio%20code&style=flat-square)](https://code.visualstudio.com/)
   - [![IDE](https://img.shields.io/badge/Rider-000000?label=IDE&logo=Rider&style=flat-square)](https://www.jetbrains.com/rider/)
 
 ### Installation
