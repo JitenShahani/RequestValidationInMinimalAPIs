@@ -100,7 +100,7 @@ public static class Middleware
 			options.InjectStylesheet ("/css/CustomSwaggerUI.css");
 
 			// Apply custom css style to enable Dark Mode in Swagger UI
-			options.InjectStylesheet ("/css/SwaggerDark.css");
+			options.InjectStylesheet ("/css/SwaggerDarkMin.css");
 		});
 
 		// Enable rate limiting
