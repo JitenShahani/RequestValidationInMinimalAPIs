@@ -1,0 +1,23 @@
+﻿global using FluentValidation;
+global using System.Text.Json;
+global using System.Diagnostics;
+global using Microsoft.OpenApi.Models;
+global using Microsoft.AspNetCore.Mvc;
+global using System.Threading.RateLimiting;
+global using Swashbuckle.AspNetCore.SwaggerUI;
+global using Microsoft.AspNetCore.Antiforgery;
+global using Microsoft.AspNetCore.RateLimiting;
+global using Microsoft.Extensions.Caching.Hybrid;
+global using Microsoft.AspNetCore.Http.HttpResults;
+global using RequestValidationInMinimalAPIs.Filters;
+global using Microsoft.AspNetCore.Mvc.Infrastructure;
+global using Microsoft.Extensions.Diagnostics.HealthChecks;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
+global using RequestValidationInMinimalAPIs.DTO;
+global using RequestValidationInMinimalAPIs.Health;
+global using RequestValidationInMinimalAPIs.Startup;
+global using RequestValidationInMinimalAPIs.Services;
+global using RequestValidationInMinimalAPIs.Endpoints;
+global using RequestValidationInMinimalAPIs.Middleware;
+global using RequestValidationInMinimalAPIs.ClientHandlers;
