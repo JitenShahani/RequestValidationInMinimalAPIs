@@ -159,6 +159,10 @@ To see Hybrid Cache in action, navigate to the `/posts` or `/posts/{id:Guid}` en
 ### Minimal APIs
 To see minimal APIs in action, navigate to the various endpoints defined in the application. The minimal APIs provide a simple and efficient way to create HTTP endpoints.
 
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE.txt) file for more details.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss any changes or improvements.
