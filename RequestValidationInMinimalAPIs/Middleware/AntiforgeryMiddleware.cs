@@ -41,10 +41,10 @@ public class AntiforgeryMiddleware
 					.CreateProblemDetails (context, StatusCodes.Status400BadRequest);
 
 				Dictionary<string, object?> error = new ()
-							{
-								{ "message", "Invalid anti-forgery token." },
-								{ "tokenReceived", context.Request.Headers[_headerName].ToString() }
-							};
+				{
+					{ "message", "Invalid anti-forgery token." },
+					{ "tokenReceived", context.Request.Headers[_headerName].ToString() }
+				};
 
 				problemDetails.Extensions["errors"] = error;
 
