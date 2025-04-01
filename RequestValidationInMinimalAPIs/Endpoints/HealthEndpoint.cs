@@ -22,36 +22,27 @@ public class HealthEndpoint
 			.WithDescription ("This endpoint displays the health of your application along with the health of your database.")
 			.Produces<HealthCheck> (StatusCodes.Status200OK)
 			.Produces (StatusCodes.Status204NoContent)
-			.Produces<string> (StatusCodes.Status500InternalServerError);
+			.ProducesProblem (StatusCodes.Status500InternalServerError);   // Global Exception Handler will handle this
 	}
 
-	public async Task<Results<Ok<HealthCheck>, NoContent, InternalServerError<string>>> GetHealthAsync (HttpContext context)
+	public async Task<Results<Ok<HealthCheck>, NoContent>> GetHealthAsync (HttpContext context)
 	{
-		try
-		{
-			var httpClient = context.RequestServices.GetService<IHttpClientFactory> ()?
-				.CreateClient ("HealthClient");
+		var httpClient = context.RequestServices.GetService<IHttpClientFactory> ()?
+			.CreateClient ("HealthClient");
 
-			if (httpClient is null)
-				return TypedResults.NoContent ();
+		if (httpClient is null)
+			return TypedResults.NoContent ();
 
-			var httpResponse = await httpClient.GetAsync ("/healthCheck");
+		var httpResponse = await httpClient.GetAsync ("/healthCheck");
 
-			if (!httpResponse.IsSuccessStatusCode)
-				return TypedResults.NoContent ();
+		if (!httpResponse.IsSuccessStatusCode)
+			return TypedResults.NoContent ();
 
-			var healthReport = await httpResponse.Content.ReadFromJsonAsync<HealthCheck> ();
+		var healthReport = await httpResponse.Content.ReadFromJsonAsync<HealthCheck> ();
 
-			if (healthReport is null)
-				return TypedResults.NoContent ();
+		if (healthReport is null)
+			return TypedResults.NoContent ();
 
-			return TypedResults.Ok (healthReport);
-		}
-		catch (Exception ex)
-		{
-			_logger.LogError (ex, "An error occurred while checking health.");
-
-			return TypedResults.InternalServerError ("An error occurred while checking health.");
-		}
+		return TypedResults.Ok (healthReport);
 	}
 }

@@ -15,7 +15,7 @@ public class PostEndpoints
 			.RequireRateLimiting ("Concurrency")
 			.RequireRateLimiting ("FixedWindow")
 			.WithTags ("Posts")
-			.ProducesProblem (StatusCodes.Status500InternalServerError);
+			.ProducesProblem (StatusCodes.Status500InternalServerError);   // Global Exception Handler will handle this
 
 		postEndpoints.MapGet ("/", GetPosts)
 			.WithSummary ("Get all blog posts")

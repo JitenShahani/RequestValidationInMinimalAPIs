@@ -127,6 +127,7 @@ public static class Middleware
 			.WithSummary ("Get Anti Forgery Token")
 			.WithDescription ("This endpoint returns the Anti Forgery Token.")
 			.Produces<AFToken> (StatusCodes.Status200OK)
+			.ProducesProblem (StatusCodes.Status500InternalServerError)    // Global Exception Handler will handle this
 			.ExcludeFromDescription ()
 			.WithTags ("AFT");
 
@@ -144,7 +145,7 @@ public static class Middleware
 			.WithSummary ("Throws an exception if the name argument is empty")
 			.WithDescription ("This endpoint throws an exception if the name argument is empty.")
 			.Produces<string> (StatusCodes.Status200OK)
-			.ProducesProblem (StatusCodes.Status500InternalServerError)
+			.ProducesProblem (StatusCodes.Status500InternalServerError)   // Global Exception Handler will handle this
 			.WithTags ("Exception");
 	}
 }
