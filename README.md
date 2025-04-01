@@ -32,6 +32,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Responses**:
   - `200 OK`: Returns a list of blog posts.
   - `204 No Content`: No blog posts found.
+  - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
 
 ### Get a blog post by Id
 - **Endpoint**: `GET /posts/{id:Guid}`
@@ -39,6 +40,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Responses**:
   - `200 OK`: Returns the blog post.
   - `404 Not Found`: Blog post not found.
+  - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
 
 ### Create a new blog post
 - **Endpoint**: `POST /posts`
@@ -48,6 +50,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Responses**:
   - `201 Created`: Returns the Id of the created blog post.
   - `400 Bad Request`: Invalid request data or missing anti-forgery token.
+  - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
 
 ### Update an existing blog post
 - **Endpoint**: `PUT /posts`
@@ -58,6 +61,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `200 OK`: Blog post updated successfully.
   - `404 Not Found`: Blog post not found.
   - `400 Bad Request`: Invalid request data or missing anti-forgery token.
+  - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
 
 ### Delete an existing blog post
 - **Endpoint**: `DELETE /posts/{id:Guid}`
@@ -66,6 +70,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
   - `200 OK`: Blog post deleted successfully.
   - `404 Not Found`: Blog post not found.
   - `400 Bad Request`: Missing anti-forgery token.
+  - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
 
 ## Health Check Endpoint
 
@@ -75,7 +80,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Responses**:
   - `200 OK`: Returns the health status of the application.
   - `204 No Content`: The named HttpClient service is missing, the endpoint response is not 200 OK, or the health report is null.
-  - `500 Internal Server Error`: If an exception occurs.
+  - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
 
 ## Exception Endpoint
 
@@ -84,7 +89,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Description**: This endpoint triggers an unhandled exception to demonstrate global exception handling.
 - **Responses**:
   - `200 OK`: Returns the argument value if the Name parameter is not null.
-  - `500 Internal Server Error`: Returns a standardized error response with details of the exception.
+  - `500 Internal Server Error`: Returns a standardized error response with details of the exception. All unhandled exception(s) are caught by the middleware.
 
 ## Anti-Forgery Token Endpoint
 
@@ -93,6 +98,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Description**: This endpoint returns the Anti-Forgery Token. The token is required for POST, PUT, and DELETE requests to prevent Cross-Site Request Forgery (CSRF) attacks. This endpoint will not be visible in the Swagger UI.
 - **Responses**:
   - `200 OK`: Returns the Anti-Forgery Token.
+  - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
 
 ## Getting Started
 
