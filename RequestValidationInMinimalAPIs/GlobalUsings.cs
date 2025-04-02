@@ -1,4 +1,5 @@
-﻿global using FluentValidation;
+﻿global using Serilog;
+global using FluentValidation;
 global using System.Text.Json;
 global using System.Diagnostics;
 global using Microsoft.OpenApi.Models;

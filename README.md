@@ -8,6 +8,9 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 [![HybridCaching](https://img.shields.io/nuget/dt/Microsoft.Extensions.Caching.Hybrid.svg?label=Microsoft.Extensions.Caching.Hybrid&style=flat-square&logo=Microsoft)](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Hybrid/)
 [![HealthChecks](https://img.shields.io/nuget/dt/Microsoft.Extensions.Diagnostics.HealthChecks.svg?label=Microsoft.Extensions.Diagnostics.HealthChecks&style=flat-square&logo=Microsoft)](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks/)
 [![SwaggerUI](https://img.shields.io/nuget/dt/Swashbuckle.AspNetCore.SwaggerUI.svg?label=Swashbuckle.AspNetCore.SwaggerUI&style=flat-square&logo=Swagger)](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/)
+[![Serilog](https://img.shields.io/nuget/dt/Serilog.svg?label=Serilog&style=flat-square&logo=Serilog)](https://www.nuget.org/packages/Serilog/)
+[![Serilog.Extensions.Logging](https://img.shields.io/nuget/dt/Serilog.Extensions.Logging.svg?label=Serilog.Extensions.Logging&style=flat-square&logo=Serilog)](https://www.nuget.org/packages/Serilog.Extensions.Logging/)
+[![Serilog.Sinks.File](https://img.shields.io/nuget/dt/Serilog.Sinks.File.svg?label=Serilog.Sinks.File&style=flat-square&logo=Serilog)](https://www.nuget.org/packages/Serilog.Sinks.File/)
 
 ## Features
 
@@ -22,6 +25,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 - **Rate Limiting**: Enable rate limiting to control the number of requests.
 - **Anti-Forgery Tokens**: Use anti-forgery tokens to protect against CSRF attacks.
 - **Hybrid Cache**: Use Hybrid Cache to cache data and improve performance.
+- **Serilog**: Integrate Serilog for structured logging and better log management.
 - **Minimal APIs**: Demonstrate the use of minimal APIs for creating HTTP endpoints.
 
 ## Blog Post Endpoints

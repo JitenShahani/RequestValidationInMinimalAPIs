@@ -19,6 +19,15 @@ public static class IoC
 			options.ValidateOnBuild = true;
 		});
 
+		// Configure logging
+		Log.Logger = new LoggerConfiguration ()
+			.WriteTo.File ("../Logs/RequestValidationInMinimalAPIs-.log", rollingInterval: RollingInterval.Day)
+			.CreateLogger ();
+
+		builder.Logging.ClearProviders ();
+		builder.Logging.AddSimpleConsole ();
+		builder.Logging.AddSerilog ();
+
 		// Configure ApiExplorer using Endpoint Metadata
 		builder.Services.AddEndpointsApiExplorer ();
 
@@ -60,12 +69,12 @@ public static class IoC
 
 		// Configure CORS
 		/*
-			Remember, following Http headers will be set for CORS based on my code below...
-			1. 'Access-Control-Allow-Origin': 'httpsUrl; httpUrl'
-			2. 'Access-Control-Allow-Methods': '*'
-			3. 'Access-Control-Allow-Headers': '*'
-			4. 'Access-Control-Allow-Credentials': '' - I am not using credentials in my requests
-		*/
+            Remember, following Http headers will be set for CORS based on my code below...
+            1. 'Access-Control-Allow-Origin': 'httpsUrl; httpUrl'
+            2. 'Access-Control-Allow-Methods': '*'
+            3. 'Access-Control-Allow-Headers': '*'
+            4. 'Access-Control-Allow-Credentials': '' - I am not using credentials in my requests
+        */
 		builder.Services.AddCors (options =>
 		{
 			options.AddDefaultPolicy (builder =>

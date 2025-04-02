@@ -7,11 +7,8 @@ public class ExceptionHandlingMiddleware
 
 	public ExceptionHandlingMiddleware (
 		RequestDelegate next,
-		ILogger<ExceptionHandlingMiddleware> logger)
-	{
-		_next = next;
-		_logger = logger;
-	}
+		ILogger<ExceptionHandlingMiddleware> logger) =>
+			(_next, _logger) = (next, logger);
 
 	public async Task InvokeAsync (HttpContext context)
 	{
@@ -22,11 +19,11 @@ public class ExceptionHandlingMiddleware
 		catch (Exception ex)
 		{
 			_logger.LogError (ex, "An unhandled exception occurred.");
-			await HandleExceptionAsync (context, ex);
+			await HandleExceptionAsync (context, ex, _logger);
 		}
 	}
 
-	private static Task HandleExceptionAsync (HttpContext context, Exception exception)
+	private static Task HandleExceptionAsync (HttpContext context, Exception exception, ILogger<ExceptionHandlingMiddleware> logger)
 	{
 		context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 		context.Response.ContentType = "application/problem+json";
@@ -43,6 +40,12 @@ public class ExceptionHandlingMiddleware
 		};
 
 		problemDetails.Extensions["errors"] = error;
+
+		// Serialize ProblemDetails to JSON
+		string problemDetailsJson = JsonSerializer.Serialize (problemDetails);
+
+		// Log the ProblemDetails JSON
+		logger.LogError ("ProblemDetails: {ProblemDetailsJson}", problemDetailsJson);
 
 		return context.Response.WriteAsJsonAsync (problemDetails);
 	}
