@@ -1,13 +1,13 @@
 ﻿namespace RequestValidationInMinimalAPIs.Middleware;
 
-public class ExceptionHandlingMiddleware
+public class ExceptionHandling
 {
 	private readonly RequestDelegate _next;
-	private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+	private readonly ILogger<ExceptionHandling> _logger;
 
-	public ExceptionHandlingMiddleware (
+	public ExceptionHandling (
 		RequestDelegate next,
-		ILogger<ExceptionHandlingMiddleware> logger) =>
+		ILogger<ExceptionHandling> logger) =>
 			(_next, _logger) = (next, logger);
 
 	public async Task InvokeAsync (HttpContext context)
@@ -23,7 +23,7 @@ public class ExceptionHandlingMiddleware
 		}
 	}
 
-	private static Task HandleExceptionAsync (HttpContext context, Exception exception, ILogger<ExceptionHandlingMiddleware> logger)
+	private static Task HandleExceptionAsync (HttpContext context, Exception exception, ILogger<ExceptionHandling> logger)
 	{
 		context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 		context.Response.ContentType = "application/problem+json";

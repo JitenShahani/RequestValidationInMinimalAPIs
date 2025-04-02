@@ -5,7 +5,7 @@ public static class Middleware
 	public static void ConfigureMiddleware (this WebApplication app, IConfiguration configuration)
 	{
 		// Enable global exception handling middleware
-		app.UseMiddleware<ExceptionHandlingMiddleware> ();
+		app.UseMiddleware<ExceptionHandling> ();
 
 		// Enable access to the static assets like CSS, JS, and images
 		app.MapStaticAssets ();
@@ -107,7 +107,7 @@ public static class Middleware
 		app.UseRateLimiter ();
 
 		// Use Anti forgery middleware
-		app.UseMiddleware<AntiforgeryMiddleware> ();
+		app.UseMiddleware<Antiforgery> ();
 
 		// Map all my endpoints
 		app.MapMyEndpoints (configuration);

@@ -1,13 +1,13 @@
 ﻿namespace RequestValidationInMinimalAPIs.Middleware;
 
-public class AntiforgeryMiddleware
+public class Antiforgery
 {
 	private readonly RequestDelegate _next;
 	private readonly IAntiforgery _antiforgery;
 	private readonly string _headerName;
 	private string _methodName;
 
-	public AntiforgeryMiddleware (
+	public Antiforgery (
 		RequestDelegate next,
 		IAntiforgery antiforgery,
 		IConfiguration configuration)
