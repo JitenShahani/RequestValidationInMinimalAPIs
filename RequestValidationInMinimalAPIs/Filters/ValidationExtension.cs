@@ -1,9 +1,8 @@
 ﻿namespace RequestValidationInMinimalAPIs.Filters;
 
-public static class ValidationExtensions
+public static class ValidationExtension
 {
-	public static RouteHandlerBuilder WithRequestValidation<TRequest> (
-		this RouteHandlerBuilder builder)
+	public static RouteHandlerBuilder WithRequestValidation<TRequest> (this RouteHandlerBuilder builder)
 	{
 		return builder
 			.AddEndpointFilter<ValidationFilter<TRequest>> ()

@@ -2,7 +2,7 @@
 
 public class Database
 {
-	private readonly List<Post> posts =
+	private readonly List<Post> _posts =
 	[
 		new Post
 		{
@@ -66,5 +66,5 @@ public class Database
 		}
 	];
 
-	public List<Post> Posts => posts;
+	public List<Post> Posts => _posts;
 }

@@ -42,7 +42,9 @@ public class ExceptionHandlingMiddleware
 		problemDetails.Extensions["errors"] = error;
 
 		// Serialize ProblemDetails to JSON
-		string problemDetailsJson = JsonSerializer.Serialize (problemDetails);
+		string problemDetailsJson = JsonSerializer.Serialize (
+			problemDetails,
+			new JsonSerializerOptions { WriteIndented = true 	});
 
 		// Log the ProblemDetails JSON
 		logger.LogError ("ProblemDetails: {ProblemDetailsJson}", problemDetailsJson);
