@@ -12,6 +12,25 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 [![Serilog.Extensions.Logging](https://img.shields.io/nuget/dt/Serilog.Extensions.Logging.svg?label=Serilog.Extensions.Logging&style=flat-square&logo=Serilog)](https://www.nuget.org/packages/Serilog.Extensions.Logging/)
 [![Serilog.Sinks.File](https://img.shields.io/nuget/dt/Serilog.Sinks.File.svg?label=Serilog.Sinks.File&style=flat-square&logo=Serilog)](https://www.nuget.org/packages/Serilog.Sinks.File/)
 
+## Table of Contents
+- [Features](#features)
+- [Blog Post Endpoints](#blog-post-endpoints)
+  - [Get all blog posts](#get-all-blog-posts)
+  - [Get a blog post by Id](#get-a-blog-post-by-id)
+  - [Create a new blog post](#create-a-new-blog-post)
+  - [Update an existing blog post](#update-an-existing-blog-post)
+  - [Delete an existing blog post](#delete-an-existing-blog-post)
+- [Health Check Endpoint](#health-check-endpoint)
+- [Exception Endpoint](#exception-endpoint)
+- [Anti-Forgery Token Endpoint](#anti-forgery-token-endpoint)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
 ## Features
 
 - **Global Exception Handling**: Middleware to handle unhandled exceptions and return a standardized error response.
@@ -48,7 +67,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 ### Create a new blog post
 - **Endpoint**: `POST /posts`
-- **Description**: This endpoint creates a new blog post based on the values you provide.
+- **Description**: This endpoint creates a new blog post based on the values you provide. The cache will be invalidated to ensure the new post is reflected in subsequent requests.
 - **Request Body**:
   - `application/json`: A JSON object containing the title and content of the blog post.
 - **Responses**:
@@ -58,7 +77,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 ### Update an existing blog post
 - **Endpoint**: `PUT /posts`
-- **Description**: This endpoint updates an existing blog post based on the values you provide.
+- **Description**: This endpoint updates an existing blog post based on the values you provide. The cache will be invalidated to ensure the updated post is reflected in subsequent requests.
 - **Request Body**:
   - `application/json`: A JSON object containing the Id, title, and content of the blog post.
 - **Responses**:
@@ -69,7 +88,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 ### Delete an existing blog post
 - **Endpoint**: `DELETE /posts/{id:Guid}`
-- **Description**: This endpoint deletes an existing blog post based on the blog post Id you provide.
+- **Description**: This endpoint deletes an existing blog post based on the blog post Id you provide. The cache will be invalidated to ensure the deleted post is not reflected in subsequent requests.
 - **Responses**:
   - `200 OK`: Blog post deleted successfully.
   - `404 Not Found`: Blog post not found.
@@ -99,7 +118,7 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 ### Get Anti-Forgery Token
 - **Endpoint**: `GET /AFT`
-- **Description**: This endpoint returns the Anti-Forgery Token. The token is required for POST, PUT, and DELETE requests to prevent Cross-Site Request Forgery (CSRF) attacks. This endpoint will not be visible in the Swagger UI.
+- **Description**: This endpoint returns the Anti-Forgery Token. The token is required for POST, PUT, and DELETE requests to prevent Cross-Site Request Forgery (CSRF) attacks. *This endpoint will not be visible in the Swagger UI.*
 - **Responses**:
   - `200 OK`: Returns the Anti-Forgery Token.
   - `500 Internal Server Error`: Exception occurs. All unhandled exception(s) are caught by the middleware.
@@ -132,13 +151,17 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
     dotnet run --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
 ```
 
-Or , use the `watch` command to automatically restart the application when changes are detected:
+or, use the `watch` command to automatically restart the application when changes are detected:
 
 ```
     dotnet watch --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
 ```
 
 4. Open your browser and navigate to `https://localhost:7036/swagger/index.html` to view the Swagger UI.
+
+### Configuration
+
+Ensure your `appsettings.json` file contains the required configuration settings for CORS origins, cache keys, and anti-forgery tokens.
 
 ## Examples
 
@@ -176,3 +199,7 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE.txt)
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss any changes or improvements.
+
+## Contact
+
+For questions or support, please open an issue on the [GitHub repository](https://github.com/JitenShahani/RequestValidationInMinimalAPIs/issues).

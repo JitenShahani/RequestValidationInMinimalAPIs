@@ -3,9 +3,15 @@
 public class PostEndpoints
 {
 	private readonly string _headerName;
+	private readonly string _getAllPostsKey;
+	private readonly string _getPostByIdKey;
 
-	public PostEndpoints (IConfiguration configuration) =>
+	public PostEndpoints (IConfiguration configuration)
+	{
 		_headerName = configuration["AntiForgeryToken:HeaderName"]!;
+		_getAllPostsKey = configuration["CacheKeys:GetPostsKey"]!;
+		_getPostByIdKey = configuration["CacheKeys:GetPostByIdKey"]!;
+	}
 
 	public void MapPostEndpoints (IEndpointRouteBuilder app)
 	{
@@ -66,7 +72,7 @@ public class PostEndpoints
 		// Fetch posts from cache or database
 		List<Post> posts = await hybridCache
 			.GetOrCreateAsync (
-				"PostCache",
+				_getAllPostsKey,
 				async token =>
 				{
 					isFromCache = false;
@@ -97,7 +103,7 @@ public class PostEndpoints
 
 		Post post = await hybridCache
 			.GetOrCreateAsync (
-				$"PostCache_{id}",
+				string.Format(_getPostByIdKey, id),
 				async token =>
 				{
 					isFromCache = false;
@@ -115,8 +121,9 @@ public class PostEndpoints
 	}
 
 	[ValidateAntiForgeryToken]
-	internal Created<Guid> CreatePost (
+	internal async Task<Created<Guid>> CreatePost (
 		[FromBody] CreatePostRequest request,
+		[FromServices] HybridCache hybridCache,
 		[FromServices] Database database,
 		[FromHeader (Name = "X-AFT-Value")] string token,
 		HttpContext httpContext)
@@ -129,14 +136,19 @@ public class PostEndpoints
 
 		database.Posts.Add (post);
 
+		// Clear the cache to return updated values from the database on next request.
+		await hybridCache.RemoveAsync (_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
+		await hybridCache.RemoveAsync (string.Format (_getPostByIdKey, post.Id), httpContext.RequestAborted);
+
 		var uri = new Uri ($"{httpContext.Request.Scheme}://{httpContext.Request.Host}{httpContext.Request.Path}/{post.Id}");
 
 		return TypedResults.Created (uri, post.Id);
 	}
 
 	[ValidateAntiForgeryToken]
-	internal Results<Ok, NotFound> UpdatePost (
+	internal async Task<Results<Ok, NotFound>> UpdatePost (
 		[FromBody] UpdatePostRequest request,
+		[FromServices] HybridCache hybridCache,
 		[FromServices] Database database,
 		[FromHeader (Name = "X-AFT-Value")] string token,
 		HttpContext httpContext)
@@ -149,12 +161,17 @@ public class PostEndpoints
 		post.Title = request.Title.Trim ();
 		post.Content = request.Content.Trim ();
 
+		// Clear the cache to return updated values from the database on next request.
+		await hybridCache.RemoveAsync (_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
+		await hybridCache.RemoveAsync (string.Format (_getPostByIdKey, request.Id), httpContext.RequestAborted);
+
 		return TypedResults.Ok ();
 	}
 
 	[ValidateAntiForgeryToken]
-	internal Results<Ok, NotFound> DeletePost (
+	internal async Task<Results<Ok, NotFound>> DeletePost (
 		[FromRoute] Guid id,
+		[FromServices] HybridCache hybridCache,
 		[FromServices] Database database,
 		[FromHeader (Name = "X-AFT-Value")] string token,
 		HttpContext httpContext)
@@ -165,6 +182,13 @@ public class PostEndpoints
 
 		if (post is not null)
 			postRemoved = database.Posts.Remove (post);
+
+		if (postRemoved)
+		{
+			// Clear the cache to return updated values from the database on next request.
+			await hybridCache.RemoveAsync(_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
+			await hybridCache.RemoveAsync (string.Format(_getPostByIdKey, id), httpContext.RequestAborted);
+		}
 
 		return postRemoved
 			? TypedResults.Ok ()
