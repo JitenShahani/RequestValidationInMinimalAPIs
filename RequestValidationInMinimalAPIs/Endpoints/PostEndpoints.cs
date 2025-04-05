@@ -4,13 +4,11 @@ public class PostEndpoints
 {
 	private readonly string _headerName;
 	private readonly string _getAllPostsKey;
-	private readonly string _getPostByIdKey;
 
 	public PostEndpoints (IConfiguration configuration)
 	{
 		_headerName = configuration["AntiForgeryToken:HeaderName"]!;
 		_getAllPostsKey = configuration["CacheKeys:GetPostsKey"]!;
-		_getPostByIdKey = configuration["CacheKeys:GetPostByIdKey"]!;
 	}
 
 	public void MapPostEndpoints (IEndpointRouteBuilder app)
@@ -101,19 +99,33 @@ public class PostEndpoints
 	{
 		bool isFromCache = true;
 
-		Post post = await hybridCache
+		List<Post> posts = await hybridCache
 			.GetOrCreateAsync (
-				string.Format(_getPostByIdKey, id),
+				_getAllPostsKey,
 				async token =>
 				{
 					isFromCache = false;
+					var post = database.Posts.FirstOrDefault (p => p.Id == id);
 					return await Task.FromResult (
-						database.Posts.FirstOrDefault (p => p.Id == id)!);
+						post is not null
+							? new List<Post> { post }
+							: []);
 				},
 				cancellationToken: cancellationToken);
 
+		var post = isFromCache
+			? posts.FirstOrDefault (p => p.Id == id)
+			: posts.Count > 0
+				? posts.First ()
+				: null;
+
+		// If single post is retrieved from the database, I would rather remove the cache as the cache key is same between GetPosts and GetPostById. Otherwise, I will fetch the single matching post from the cache.
+		if (!isFromCache)
+			await hybridCache.RemoveAsync (_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
+
 		// Set response header based on data source
-		httpContext.Response.Headers.Append ("X-Data-Source", isFromCache ? "Cache" : "Database");
+		if (post is not null)
+			httpContext.Response.Headers.Append ("X-Data-Source", isFromCache ? "Cache" : "Database");
 
 		return post is not null
 			? TypedResults.Ok (post)
@@ -138,7 +150,6 @@ public class PostEndpoints
 
 		// Clear the cache to return updated values from the database on next request.
 		await hybridCache.RemoveAsync (_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
-		await hybridCache.RemoveAsync (string.Format (_getPostByIdKey, post.Id), httpContext.RequestAborted);
 
 		var uri = new Uri ($"{httpContext.Request.Scheme}://{httpContext.Request.Host}{httpContext.Request.Path}/{post.Id}");
 
@@ -163,7 +174,6 @@ public class PostEndpoints
 
 		// Clear the cache to return updated values from the database on next request.
 		await hybridCache.RemoveAsync (_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
-		await hybridCache.RemoveAsync (string.Format (_getPostByIdKey, request.Id), httpContext.RequestAborted);
 
 		return TypedResults.Ok ();
 	}
@@ -183,12 +193,9 @@ public class PostEndpoints
 		if (post is not null)
 			postRemoved = database.Posts.Remove (post);
 
+		// Clear the cache to return updated values from the database on next request.
 		if (postRemoved)
-		{
-			// Clear the cache to return updated values from the database on next request.
 			await hybridCache.RemoveAsync(_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
-			await hybridCache.RemoveAsync (string.Format(_getPostByIdKey, id), httpContext.RequestAborted);
-		}
 
 		return postRemoved
 			? TypedResults.Ok ()
