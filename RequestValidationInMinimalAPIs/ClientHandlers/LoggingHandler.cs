@@ -33,7 +33,7 @@ public class LoggingHandler : DelegatingHandler
 		// Log response body
 		if (response.Content is not null)
 		{
-			var responseBody = await response.Content.ReadAsStringAsync ();
+			var responseBody = await response.Content.ReadAsStringAsync (cancellationToken);
 			_logger.LogInformation ("***Response Body: {responseBody}", responseBody);
 		}
 

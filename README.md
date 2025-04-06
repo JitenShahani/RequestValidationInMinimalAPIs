@@ -219,7 +219,8 @@ For questions or support, please open an issue on the [GitHub repository](https:
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss any changes or improvements.
 
-## Thanks to Contributors:
+## Thanks to Contributors
+
 <a href="https://github.com/JitenShahani/RequestValidationInMinimalApis/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=JitenShahani/RequestValidationInMinimalApis" />
 </a>
