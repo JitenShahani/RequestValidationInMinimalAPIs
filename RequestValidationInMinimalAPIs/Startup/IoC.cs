@@ -31,7 +31,7 @@ public static class IoC
 		// Configure ApiExplorer using Endpoint Metadata
 		builder.Services.AddEndpointsApiExplorer ();
 
-		// Configure Antiforgery
+		// Configure Anti-forgery
 		builder.Services.AddAntiforgery (options =>
 		{
 			options.HeaderName = antiForgeryToken;
@@ -139,7 +139,7 @@ public static class IoC
 		});
 
 		// Register ServiceValidator service.
-		// This service injects all the required services to make sure that exception(s) are reaised in case they are unregistered.
+		// This service injects all the required services to make sure that exception(s) are raised in case they are left unregistered.
 		builder.Services.AddSingleton<ServiceValidator> ();
 
 		// Register Logging Handler for HttpClient
