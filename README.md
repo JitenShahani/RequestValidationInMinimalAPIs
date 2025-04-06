@@ -1,4 +1,4 @@
-# Request Validation in Minimal APIs [![Target](https://img.shields.io/static/v1?label=Target&message=net9.0&color=512bd4&logo=.net&style=flat-square)](https://dotnet.microsoft.com/en-us/) [![Language](https://img.shields.io/badge/C%23-239120?label=&logo=c-sharp&style=flat-square)](https://dotnet.microsoft.com/en-us/languages/csharp/) [![Language](https://img.shields.io/badge/CSS-239120?label=&logo=css3&style=flat-square)]()
+# Request Validation in Minimal APIs [![Target](https://img.shields.io/static/v1?label=Target&message=net9.0&color=512bd4&logo=.net&style=flat-square)](https://dotnet.microsoft.com/en-us/) [![Language](https://img.shields.io/badge/C%23-239120?label=&logo=c-sharp&style=flat-square)](https://dotnet.microsoft.com/en-us/languages/csharp/) [![Language](https://img.shields.io/badge/CSS-239120?label=&logo=css3&style=flat-square)](https://www.w3.org/Style/CSS/)
 
 Request Validation in Minimal APIs is a .NET 9 application that demonstrates the use of minimal APIs in ASP.NET Core. This project includes various features such as global exception handling, CORS, HTTPS redirection, health checks, OpenAPI documentation, and more. It also showcases the use of middleware for handling exceptions and anti-forgery tokens, as well as the integration of Swagger UI with custom styles and dark mode support.
 
@@ -42,8 +42,9 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
     - [Hybrid Cache](#hybrid-cache)
     - [Minimal APIs](#minimal-apis)
   - [License](#license)
-  - [Contributing](#contributing)
   - [Contact](#contact)
+  - [Contributing](#contributing)
+  - [Thanks to Contributors:](#thanks-to-contributors)
 
 ## Features
 
@@ -151,24 +152,24 @@ Request Validation in Minimal APIs is a .NET 9 application that demonstrates the
 
 1. Clone the repository:
 ```
-      git clone https://github.com/JitenShahani/RequestValidationInMinimalAPIs.git
-      cd RequestValidationInMinimalAPIs
+	  git clone https://github.com/JitenShahani/RequestValidationInMinimalAPIs.git
+	  cd RequestValidationInMinimalAPIs
 ```
 
 2. Build the project:
 ```
-    dotnet build
+	dotnet build
 ```
 
 3. Run the application:
 ```
-    dotnet run --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
+	dotnet run --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
 ```
 
 or, use the `watch` command to automatically restart the application when changes are detected:
 
 ```
-    dotnet watch --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
+	dotnet watch --project .\RequestValidationInMinimalAPIs\RequestValidationInMinimalAPIs.csproj
 ```
 
 4. Open your browser and navigate to `https://localhost:7036/swagger/index.html` to view the Swagger UI.
@@ -210,10 +211,15 @@ To see minimal APIs in action, navigate to the various endpoints defined in the 
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE.txt) file for more details.
 
+## Contact
+
+For questions or support, please open an issue on the [GitHub repository](https://github.com/JitenShahani/RequestValidationInMinimalAPIs/issues).
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss any changes or improvements.
 
-## Contact
-
-For questions or support, please open an issue on the [GitHub repository](https://github.com/JitenShahani/RequestValidationInMinimalAPIs/issues).
+## Thanks to Contributors:
+<a href="https://github.com/JitenShahani/RequestValidationInMinimalApis/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JitenShahani/RequestValidationInMinimalApis" />
+</a>
