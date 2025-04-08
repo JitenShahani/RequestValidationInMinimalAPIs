@@ -5,9 +5,7 @@ public class ExceptionHandling
 	private readonly RequestDelegate _next;
 	private readonly ILogger<ExceptionHandling> _logger;
 
-	public ExceptionHandling (
-		RequestDelegate next,
-		ILogger<ExceptionHandling> logger) =>
+	public ExceptionHandling (RequestDelegate next, 	ILogger<ExceptionHandling> logger) =>
 			(_next, _logger) = (next, logger);
 
 	public async Task InvokeAsync (HttpContext context)
