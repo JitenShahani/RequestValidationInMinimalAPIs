@@ -46,7 +46,18 @@ public static class IoC
 			.AddHttpMessageHandler<LoggingHandler> ();
 
 		// Enable Controllers
-		builder.Services.AddControllers ();
+		builder.Services.AddControllers ()
+			.AddJsonOptions (options =>
+			{
+				// Default property names to pascal cases
+				options.JsonSerializerOptions.PropertyNamingPolicy = null;
+				// Make sure we are not case sensitive
+				options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+				// Ignore EF Core cycles
+				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+				// Make sure the JSON is always formatted
+				options.JsonSerializerOptions.WriteIndented = true;
+			});
 
 		// Configure Health Checks
 		builder.Services.AddHealthChecks ()

@@ -18,7 +18,7 @@ public class DatabaseHealthCheck : IHealthCheck
 			bool databaseIsHealthy = _database.Posts is not null && _database.Posts.Count > 0;
 
 			if (databaseIsHealthy)
-				return HealthCheckResult.Healthy ($"{_database.Posts!.Count.ToString ()} Record found!");
+				return HealthCheckResult.Healthy ($"{_database.Posts!.Count} Record found!");
 
 			return HealthCheckResult.Unhealthy ("The database is unhealthy.");
 		}
