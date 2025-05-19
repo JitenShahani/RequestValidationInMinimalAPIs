@@ -1,4 +1,6 @@
-﻿namespace RequestValidationInMinimalAPIs.Startup;
+﻿using JsonOptions = Microsoft.AspNetCore.Http.Json.JsonOptions;
+
+namespace RequestValidationInMinimalAPIs.Startup;
 
 public static class IoC
 {
@@ -7,6 +9,22 @@ public static class IoC
 		var httpUrl = builder.Configuration["ServerInfo:HttpUrl"]!;
 		var httpsUrl = builder.Configuration["ServerInfo:HttpsUrl"]!;
 		var antiForgeryToken = builder.Configuration["AntiForgeryToken:HeaderName"]!;
+
+		//Minimal Endpoint => Microsoft.AspNetCore.Http.Json.JsonOptions
+		//Controller Actions => Microsoft.AspNetCore.Mvc.JsonOptions
+
+		// Configure JSON Serializer Options for minimal endpoints.
+		builder.Services.Configure<JsonOptions> (options =>
+		{
+			// Default property names to pascal cases
+			options.SerializerOptions.PropertyNamingPolicy = null;
+			// Make sure we are not case-sensitive
+			options.SerializerOptions.PropertyNameCaseInsensitive = true;
+			// Ignore EF Core cycles
+			options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+			// Make sure the JSON is always formatted - Not suggested for production
+			options.SerializerOptions.WriteIndented = true;
+		});
 
 		// Configure DI Container to blow up early at build time instead of run time.
 		builder.Host.UseDefaultServiceProvider ((context, options) =>
@@ -44,20 +62,6 @@ public static class IoC
 			client.Timeout = TimeSpan.FromSeconds (5);
 		})
 			.AddHttpMessageHandler<LoggingHandler> ();
-
-		// Enable Controllers
-		builder.Services.AddControllers ()
-			.AddJsonOptions (options =>
-			{
-				// Default property names to pascal cases
-				options.JsonSerializerOptions.PropertyNamingPolicy = null;
-				// Make sure we are not case sensitive
-				options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-				// Ignore EF Core cycles
-				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-				// Make sure the JSON is always formatted
-				options.JsonSerializerOptions.WriteIndented = true;
-			});
 
 		// Configure Health Checks
 		builder.Services.AddHealthChecks ()

@@ -4,6 +4,7 @@ global using System.Text.Json;
 global using System.Diagnostics;
 global using Microsoft.OpenApi.Models;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Http.Json;
 global using System.Threading.RateLimiting;
 global using System.Text.Json.Serialization;
 global using Swashbuckle.AspNetCore.SwaggerUI;

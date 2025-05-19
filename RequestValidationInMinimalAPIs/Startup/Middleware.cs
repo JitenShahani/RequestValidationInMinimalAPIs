@@ -20,9 +20,6 @@ public static class Middleware
 		if (!app.Environment.IsDevelopment ())
 			app.UseHttpsRedirection ();
 
-		// Map controllers
-		app.MapControllers ();
-
 		// Use Anti forgery
 		app.UseAntiforgery ();
 

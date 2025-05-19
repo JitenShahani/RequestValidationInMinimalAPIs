@@ -1,4 +1,4 @@
-﻿namespace RequestValidationInMinimalAPIs.Endpoints;
+﻿ namespace RequestValidationInMinimalAPIs.Endpoints;
 
 public class PostEndpoints
 {
@@ -31,7 +31,8 @@ public class PostEndpoints
 			.WithSummary ("Get a blog post by Id")
 			.WithDescription ("This endpoint returns a single blog post based on the blog post Id you will provide below.")
 			.Produces<Post> (StatusCodes.Status200OK)
-			.Produces (StatusCodes.Status404NotFound);
+			.Produces (StatusCodes.Status404NotFound)
+			.WithName ("GetPostById");
 
 		postEndpoints.MapPost ("/", CreatePost)
 			.WithSummary ("Create a new blog post")
@@ -39,6 +40,7 @@ public class PostEndpoints
 			.Accepts<CreatePostRequest> ("application/json")
 			.Produces<Guid> (StatusCodes.Status201Created)
 			.Produces (StatusCodes.Status400BadRequest) // Endpoint doesn't return 400. Anti Forgery middleware does, on invalid token.
+			.ProducesValidationProblem (StatusCodes.Status400BadRequest)
 			.WithRequestValidation<CreatePostRequest> ();
 
 		postEndpoints.MapPut ("/", UpdatePost)
@@ -48,6 +50,7 @@ public class PostEndpoints
 			.Produces (StatusCodes.Status200OK)
 			.Produces (StatusCodes.Status404NotFound)
 			.Produces (StatusCodes.Status400BadRequest) // Endpoint doesn't return 400. Anti Forgery middleware does, on invalid token.
+			.ProducesValidationProblem (StatusCodes.Status400BadRequest)
 			.WithRequestValidation<UpdatePostRequest> ();
 
 		postEndpoints.MapDelete ("/{id:Guid}", DeletePost)
@@ -151,7 +154,14 @@ public class PostEndpoints
 		// Clear the cache to return updated values from the database on next request.
 		await hybridCache.RemoveAsync (_getAllPostsKey, cancellationToken: httpContext.RequestAborted);
 
-		var uri = new Uri ($"{httpContext.Request.Scheme}://{httpContext.Request.Host}{httpContext.Request.Path}/{post.Id}");
+		//var uri = new Uri ($"{httpContext.Request.Scheme}://{httpContext.Request.Host}{httpContext.Request.Path}/{post.Id}");
+
+		var uri =
+			$"{httpContext.Request.Scheme}://{httpContext.Request.Host}" +
+			httpContext
+				.RequestServices
+				.GetRequiredService<LinkGenerator> ()
+				.GetPathByName ("GetPostById", new { Id = post.Id });
 
 		return TypedResults.Created (uri, post.Id);
 	}

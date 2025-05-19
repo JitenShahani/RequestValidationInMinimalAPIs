@@ -15,16 +15,16 @@ public class ValidationFilter<TRequest> : IEndpointFilter
 
 		var result = await _validator.ValidateAsync (request, context.HttpContext.RequestAborted);
 
-		ProblemDetailsFactory problemDetailsFactory =
-			context.HttpContext.RequestServices.GetRequiredService<ProblemDetailsFactory> ();
+		//ProblemDetailsFactory problemDetailsFactory =
+		//	context.HttpContext.RequestServices.GetRequiredService<ProblemDetailsFactory> ();
 
-		ProblemDetails problemDetails = problemDetailsFactory
-			.CreateProblemDetails (context.HttpContext, StatusCodes.Status400BadRequest, "Validation error(s)");
+		//ProblemDetails problemDetails = problemDetailsFactory
+		//	.CreateProblemDetails (context.HttpContext, StatusCodes.Status400BadRequest, "Validation error(s)");
 
-		problemDetails.Extensions["Errors"] = result.ToDictionary ();
+		//problemDetails.Extensions["Errors"] = result.ToDictionary ();
 
 		if (!result.IsValid)
-			return TypedResults.Problem (problemDetails);
+			return TypedResults.ValidationProblem (result.ToDictionary());
 
 		return await next (context);
 	}
